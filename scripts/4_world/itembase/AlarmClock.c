@@ -38,9 +38,12 @@ modded class AlarmClock_ColorBase
 				pos[1] = GetGame().SurfaceY(pos[0], pos[2]) + 0.1;
 
 				// Create a new grande
-				Grenade_Base clockGrenade = GetGame().CreateObject(grenade.GetType(), pos, false);
-				clockGrenade.PlaceOnSurface(); // Place the new grenade on the ground
+				Grenade_Base clockGrenade = Grenade_Base.Cast(GetGame().CreateObject(grenade.GetType(), pos, false));
 
+				if (!clockGrenade)
+					return;
+
+				clockGrenade.PlaceOnSurface(); // Place the new grenade on the ground
 				GetGame().GetCallQueue(CALL_CATEGORY_SYSTEM).CallLater(this.ExplodeGrenade, 100, false, clockGrenade);
 			}
 		}
